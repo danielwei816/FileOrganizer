@@ -14,18 +14,21 @@ def organize(path, extensions, folder):
     for file in os.listdir(path): # lists all files + directories in specified directory
         ext = os.path.splitext(file)[1] # splits directory name into [root, ext]
         if ext.lower() in extensions:
-            files.append(file)
+            files.append(str(file))
 
     if not folder in os.listdir(path): os.mkdir(os.path.join(path, folder))
-    
+
     for file in files:
-        suffixNum = 1
+        prefixNum = 1
         duplicateFile = file
         while duplicateFile in os.listdir(os.path.join(path, folder)):
         # looking for a duplicate file
-            duplicateFile = file + " (" + str(suffixNum) + ")"
-            suffixNum += 1
+            duplicateFile =  "(" + str(prefixNum) + ") " + file
+            prefixNum += 1
             
+        print(os.path.join(path, file))
+        print(os.path.join(os.path.join(path, folder), duplicateFile))
+
         os.rename(os.path.join(path, file), os.path.join(os.path.join(path, folder), duplicateFile))
         
 
